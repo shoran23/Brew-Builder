@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recipes</title>
+    <link rel="stylesheet" href="/css/style-index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="recipe-container">
+            <h1>User Recipes</h1>   
+            <% for(let i=0;i<5;i++) { %>
+                <div class="recipe">
+                    <h3 class="recipe-name">Recipe Name</h3>
+                    <div class="options">
+                        <a href="#" class="view">View</a>
+                        <a href="#" class="edit">Edit</a>
+                        <a href="#" class="delete">Delete</a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

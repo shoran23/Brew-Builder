@@ -1,0 +1,74 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+    width: 40%;
+    height: 80%;
+    border-right: 2px solid gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.recipe-container {
+    border: 1px solid darkgray;
+    width: 50%;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe {
+    height: 55px;
+    width: 80%;
+    padding-left: 1%;
+    padding-right: 1%;
+    margin-bottom: 8px;
+    background-color: #E0E0E0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.options {
+    width: 55%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.view, .edit, .delete {
+    width: 25%;
+    height: 75%;
+    color: whitesmoke;
+    text-decoration: none;
+    text-shadow: 1px 1px black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.view {
+    background-color: #36CC66;
+}
+.edit {
+    background-color: #1C80FF;
+}
+.delete {
+    background-color: #F83334;
+}
+
