@@ -48,7 +48,8 @@
                 <h3>Hops</h3>
                 <div class="hop-container">
                     <div class="hop-header">
-                        <div class="total-IBU"></div>
+                        <label for="totalIBU">Total IBU</label>
+                        <input type="number" class="total-IBU" name="totalIBU" step="0.01" value=""></input>
                         <button class="calculate-hops">Calculate</button>
                     </div>
                     <div class="hop-list"></div>
@@ -58,8 +59,9 @@
                 <div class="yeast-container">
                     <div class="yeast-header">
                         <label for="finalGravity">Estimated Final Gravity</label>
-                        <input class="final-gravity" name="finalGravity" value="">
-                        <div class="final-abv">Estimated Final AVB: </div>
+                        <input class="final-gravity" name="finalGravity" value=""></input>
+                        <label for="finalAVB">Estimated Final AVB</label>
+                        <input class="final-abv" type="number" name="finalAVB" step="0.01" value=""></input>
                         <button class="calculate-yeast"></button>
                     </div>
                     <div class="yeast-list">
@@ -242,7 +244,8 @@
             }
             // round and post total IBU
             totalIBU = Math.floor(totalIBU * 100)/100;
-            $('.total-IBU').text(`Total IBU: ${totalIBU}`);
+            $('.total-IBU').val(totalIBU);
+            console.log(totalIBU);
             return false;
         }
 
@@ -260,8 +263,8 @@
             // calculate final AVB
             let finalAVB = Math.floor(((startingGravity - finalGravity) * 131)*100)/100;
             // post the finaL gravity and final AVB
-            $('.final-gravity').val(`Estimated Final Gravity: ${finalGravity}`);
-            $('.final-abv').text(`Estimated Final AVB: ${finalAVB}%`);
+            $('.final-gravity').val(finalGravity);
+            $('.final-abv').val(finalAVB);
             return false;
         }
 

@@ -18,9 +18,11 @@ const recipeSchema = new Schema ({
     timeHop: {type: Array, required: true},
     amountHop: {type: Array, required: true},
     // yeast
-    selectedYeast: {type: Array},
+    selectedYeast: {type: Array, required: true},
     // stats
-    finalGravity: {type: Number, required: true}
+    finalGravity: {type: Number, required: true},
+    finalAVB: {type: Number, required: true},
+    totalIBU: {type: Number, required: true}
 });
 
 

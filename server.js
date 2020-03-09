@@ -49,14 +49,33 @@ app.get('/recipes/:id', (req,res) => {                                          
     Recipe.findById(req.params.id, (err,foundRecipe) => {    
         res.render('view.ejs',{recipe: foundRecipe});
     });
-
 });
 
+app.delete('/recipes/delete/:id', (req,res) => {                                // delete
+    console.log('delete route triggered');
+    console.log(req.params.id);
+    Recipe.findByIdAndRemove(req.params.id, (err,removedRecipe) => {
+        res.redirect('/recipes/');
+    });
+});
 
-  
 app.post('/create/recipe', (req,res) => {                                       // create recipes
-    Recipe.create(req.body, (req,createRecipe) => {
-        res.send('Posted recipe details');
+    console.log(req.body.name);
+    console.log(req.body.startingGravity);
+    console.log(req.body.batchVolume);
+    console.log(req.body.brewEfficiency);
+    console.log(req.body.selectedFermentable);
+    console.log(req.body.percentFermentable); 
+    console.log(req.body.amountFermentable);
+    console.log(req.body.selectedHop);
+    console.log(req.body.timeHop);
+    console.log(req.body.amountHop);
+    console.log(req.body.selectedYeast);
+    console.log(req.body.finalGravity);
+    console.log(req.body.finalAVB);
+    console.log(req.body.totalIBU);
+    Recipe.create(req.body, (err,createRecipe) => {
+        res.redirect('/recipes/');
     })
 })
 
@@ -65,21 +84,21 @@ app.post('/create/recipe', (req,res) => {                                       
 
 const seedFermentables = require('./models/fermentables_seed.js');              // seed fermentables
 app.get('/seed/fermentables/', (req,res) => {
-    Fermentable.create(seedFermentables, (req,createFermentable) => {
+    Fermentable.create(seedFermentables, (err,createFermentable) => {
         // redeirect here
     });
 });
 
 const seedHops = require('./models/hops_seed.js');                              // seed hops
 app.get('/seed/hops', (req,res) => {
-    Hop.create(seedHops, (req,createHop) => {
+    Hop.create(seedHops, (err,createHop) => {
         // redirect here
     });
 });
 
 const seedYeast = require('./models/yeast_seed.js');                           // seed yeast
 app.get('/seed/yeast', (req,res) => {
-    Yeast.create(seedYeast, (req,createYeast) => {
+    Yeast.create(seedYeast, (err,createYeast) => {
         // redirect here
     });
 });
