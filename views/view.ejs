@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= recipe.name %></title>
+</head>
+<body>
+    <div class="container">
+            <div class="recipe-container">
+                <h1><%= recipe.name %></h1>
+                <h3>Targets</h3>
+                <div class="starting-container">
+                    <div class="starting-gravity">
+                        <h4>Starting Gravity:</h4>
+                        <p><%= recipe.startingGravity %></p>
+                    </div>  
+                    <div class="volume-container">
+                        <h4>Batch Volume:</h4>
+                        <p><%= recipe.batchVolume %></p>
+                    </div>
+                    <div class="brew-efficiency-container">
+                        <h4>Brew Efficiency:</h4>
+                        <p><%= recipe.brewEfficiency %></p>
+                    </div>
+                </div>
+                <h3>Fermentables</h3>
+                <div class="fermentable-container">
+                    <div class="fermentable-list">
+                        <% for(let i=0;i<recipe.selectedFermentable.length;i++) { %>
+                            <div class="fermentableItem">
+                                <% let fermentableStr = recipe.selectedFermentable[i] %>
+                                <% let fermentableArr = fermentableStr.split('~'); %>
+                                <div class="fermentableItem"><%= fermentableArr[0] %></div>
+                                <div class="fermentablePercent"><%=  recipe.percentFermentable[i] %></div>
+                                <div class="fermentableAmount"><%= recipe.amountFermentable[i] %></div>
+                            </div>
+                        <% } %>
+                    </div>
+                    <h3>Hops</h3>
+                    <div class="hop-container">
+                        <div class="hop-list">
+                            <% for(let i=0;i<recipe.selectedHop.length;i++) { %>
+                                <div class="hopItem">
+                                    <% let hopStr = recipe.selectedHop[i]; %>
+                                    <% let hopArr = hopStr.split('~'); %>
+                                    <div class="hopItem"><%= hopArr[0] %></div>
+                                    <div class="hopTime"><%= recipe.timeHop[i] %></div>
+                                    <div class="hopAmount"><%= recipe.amountHop[i] %></div>
+                                </div>
+                            <% } %>                            
+                        </div>
+                    </div>
+                </div>
+                <h3>Yeast</h3>
+                <div class="yeast-container">
+                    <div class="yeast-list">
+                        <% let yeastStr = recipe.selectedYeast[0]; %>
+                        <% console.log(yeastStr) %>
+                        <% let yeastArr = yeastStr.split(","); %>
+                        <div class="yeast-item"><%= yeastArr[0] %></div>
+                    </div>
+                </div>
+                <h3><%= recipe.name %> Stats</h3>
+                <div class="state-container">
+                    <div class="final-gravity">
+                        <div class="label">Estimated Final Gravity</div>
+                        <div class="data"><%= recipe.finalGravity %></div>
+                    </div>
+                    <div class="final-avb">
+                        <div class="label">Estimated Final AVB</div>
+                        <div class="data"><%= recipe.finalAVB %></div>
+                    </div>
+                    <div class="total-ibu">
+                        <div class="label">Total IBU</div>
+                        <div class="data"><%= recipe.totalIBU %></div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+</body>
+</html>

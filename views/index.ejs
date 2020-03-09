@@ -11,11 +11,11 @@
     <div class="container">
         <div class="recipe-container">
             <h1>User Recipes</h1>   
-            <% for(let i=0;i<5;i++) { %>
+            <% for(let i=0;i<recipes.length;i++) { %>
                 <div class="recipe">
-                    <h3 class="recipe-name">Recipe Name</h3>
+                    <h3 class="recipe-name"><%= recipes[i].name %></h3>
                     <div class="options">
-                        <a href="#" class="view">View</a>
+                        <a href="/recipes/<%= recipes[i].id %>" class="view">View</a>
                         <a href="#" class="edit">Edit</a>
                         <a href="#" class="delete">Delete</a>
                     </div>

@@ -23,11 +23,45 @@ mongoose.connection.once("open", () => {
 const Fermentable = require('./models/fermentables.js');
 const Hop = require('./models/hops.js');
 const Yeast = require('./models/yeast.js');
+const Recipe = require('./models/recipes.js');
 
 /* ROUTES *************************************************************/
-app.get('/recipes/', (req,res) => {                                            // index
-    res.render('index.ejs');
+app.get('/recipes/new', (req,res) => {                                          // new recipe
+    // send fermentables
+    Fermentable.find({}, (err,allFermentables) => {
+        // send hops
+        Hop.find({}, (err,allHops) => {
+            // send yeast
+            Yeast.find({}, (err,allYeast) => {
+                res.render('new.ejs',{fermentables: allFermentables, hops: allHops, yeasts: allYeast});
+            });
+        });
+    });
+});
+
+app.get('/recipes', (req,res) => {                                              // index
+    Recipe.find({}, (err,allRecipes) => {
+        res.render('index.ejs',{recipes: allRecipes});
+    });
+});
+
+app.get('/recipes/:id', (req,res) => {                                          // view
+    Recipe.findById(req.params.id, (err,foundRecipe) => {    
+        res.render('view.ejs',{recipe: foundRecipe});
+    });
+
+});
+
+
+  
+app.post('/create/recipe', (req,res) => {                                       // create recipes
+    Recipe.create(req.body, (req,createRecipe) => {
+        res.send('Posted recipe details');
+    })
 })
+
+
+
 
 const seedFermentables = require('./models/fermentables_seed.js');              // seed fermentables
 app.get('/seed/fermentables/', (req,res) => {
@@ -49,6 +83,8 @@ app.get('/seed/yeast', (req,res) => {
         // redirect here
     });
 });
+
+
 
 
 
