@@ -16,7 +16,7 @@
                     <h3 class="recipe-name"><%= recipes[i].name %></h3>
                     <div class="options">
                         <a href="/recipes/<%= recipes[i].id %>" class="view">View</a>
-                        <a href="/recipes/edit/<% recipes[i].id %>" class="edit">Edit</a>
+                        <a href="/recipes/edit/<%= recipes[i].id %>" class="edit">Edit</a>
                         <form action="/recipes/delete/<%= recipes[i].id %>?_method=DELETE" class="delete-form" method="POST">
                           <button class="delete">DELETE</button>
                         </form>

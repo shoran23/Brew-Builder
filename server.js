@@ -51,6 +51,27 @@ app.get('/recipes/:id', (req,res) => {                                          
     });
 });
 
+app.get('/recipes/edit/:id', (req,res) => {                                     // edit
+    Recipe.findById(req.params.id, (err,foundRecipe) => {
+        // send fermentables
+        Fermentable.find({}, (err,allFermentables) => {
+            // send hops
+            Hop.find({}, (err,allHops) => {
+                // send yeast
+                Yeast.find({}, (err,allYeast) => {
+                    res.render('edit.ejs',{
+                        recipe: foundRecipe, 
+                        fermentables: allFermentables,
+                        hops: allHops,
+                        yeasts: allYeast
+                    });
+                });
+            })
+        })
+    });
+});
+
+
 app.delete('/recipes/delete/:id', (req,res) => {                                // delete
     console.log('delete route triggered');
     console.log(req.params.id);
@@ -60,27 +81,16 @@ app.delete('/recipes/delete/:id', (req,res) => {                                
 });
 
 app.post('/create/recipe', (req,res) => {                                       // create recipes
-    console.log(req.body.name);
-    console.log(req.body.startingGravity);
-    console.log(req.body.batchVolume);
-    console.log(req.body.brewEfficiency);
-    console.log(req.body.selectedFermentable);
-    console.log(req.body.percentFermentable); 
-    console.log(req.body.amountFermentable);
-    console.log(req.body.selectedHop);
-    console.log(req.body.timeHop);
-    console.log(req.body.amountHop);
-    console.log(req.body.selectedYeast);
-    console.log(req.body.finalGravity);
-    console.log(req.body.finalAVB);
-    console.log(req.body.totalIBU);
     Recipe.create(req.body, (err,createRecipe) => {
         res.redirect('/recipes/');
     })
 })
 
-
-
+app.put('/update/recipes/:id', (req,res) => {
+    Recipe.findByIdAndUpdate(req.body, (err,updateRecipe) => {
+        res.redirect('/recipes/');
+    });
+});
 
 const seedFermentables = require('./models/fermentables_seed.js');              // seed fermentables
 app.get('/seed/fermentables/', (req,res) => {
