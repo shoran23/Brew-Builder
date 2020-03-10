@@ -17,14 +17,14 @@
                     <div class="options">
                         <a href="/recipes/<%= recipes[i].id %>" class="view">View</a>
                         <a href="/recipes/edit/<% recipes[i].id %>" class="edit">Edit</a>
-                        <form action="/recipes/delete/<%= recipes[i].id %>?_method=DELETE" class="delete" method="POST">
-                          <button class="delete-button">DELETE</button>
+                        <form action="/recipes/delete/<%= recipes[i].id %>?_method=DELETE" class="delete-form" method="POST">
+                          <button class="delete">DELETE</button>
                         </form>
                     </div>
                 </div>
             <% } %>
+            <a class="add" href="/recipes/new">+</a>
         </div>
-        <a href="/recipes/new">+</a>
     </div>
 </body>
 </html>

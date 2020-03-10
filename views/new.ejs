@@ -15,67 +15,76 @@
 <body>
     <div class="container">
         <div class="recipe-container">
-            <h1>New Recipe</h1>
+            <header>
+                <h1>New Recipe</h1>
+                <a class="back" href="/recipes/">Back to Receipes</a>
+            </header>
             <form action="/create/recipe" method="POST">
-                <div class="name">
-                    <label for="name">Recipe Name</label>
-                    <input type="text" name="name">
-                </div>
-                <h3>Targets</h3>
-                <div class="starting-container">
-                    <div class="starting-gravity">
-                        <label for="starting-gravity">Starting Gravity:</label>
-                        <input type="number" class="start-gravity" step="0.001" name="startingGravity">
-                    </div>  
-                    <div class="volume-container">
-                        <label for="volume">Batch Volume (G):</label>
-                        <input type="number" class="batch-volume" step="0.001" name="batchVolume">
-                    </div>
-                    <div class="brew-efficiency-container">
-                        <label for="brew-efficiency">Brew Efficiency(%)</label>
-                        <input type="number" class="brew-efficiency" name="brewEfficiency">
+                <div class="name-container">
+                    <div class="name">
+                        <label for="name">Recipe Name:</label>
+                        <input class="name-input" type="text" name="name">
                     </div>
                 </div>
-                <h3>Grist</h3>
-                <div class="fermentable-container">
-                    <div class="fermentable-header">
-                        <div class="total-percentage"></div>
-                        <button class="calculate-fermentables">Calculate</button>
-                    </div>
-                    <div class="fermentable-list"></div>
-                    <button class="fermentable-add">+</button>
-                </div>
-                <h3>Hops</h3>
-                <div class="hop-container">
-                    <div class="hop-header">
-                        <label for="totalIBU">Total IBU</label>
-                        <input type="number" class="total-IBU" name="totalIBU" step="0.01" value=""></input>
-                        <button class="calculate-hops">Calculate</button>
-                    </div>
-                    <div class="hop-list"></div>
-                    <button class="hop-add">+</button>
-                </div>
-                <h3>Yeast</h3>
-                <div class="yeast-container">
-                    <div class="yeast-header">
-                        <label for="finalGravity">Estimated Final Gravity</label>
-                        <input class="final-gravity" name="finalGravity" value=""></input>
-                        <label for="finalAVB">Estimated Final AVB</label>
-                        <input class="final-abv" type="number" name="finalAVB" step="0.01" value=""></input>
-                        <button class="calculate-yeast"></button>
-                    </div>
-                    <div class="yeast-list">
-                        <div class="yeast">
-                            <label for="select-yeast">Selection:</label>
-                            <select class="selectYeast" name="selectedYeast">
-                                <% for(let i=0;i<yeasts.length;i++) { %>
-                                    <option value= "<%= [yeasts[i].name,yeasts[i].attenuation] %>"> <%= yeasts[i].name %> (Attenuation: <%= yeasts[i].attenuation %>%) </option>
-                                <% } %>
-                            </select>
+
+                    <h3>Targets</h3>
+                    <div class="starting-container">
+                        <div class="starting-gravity">
+                            <label for="starting-gravity">Starting Gravity:</label>
+                            <input type="number" class="start-gravity" step="0.001" name="startingGravity">
+                        </div>  
+                        <div class="volume-container">
+                            <label for="volume">Batch Volume (G):</label>
+                            <input type="number" class="batch-volume" step="0.001" name="batchVolume">
+                        </div>
+                        <div class="brew-efficiency-container">
+                            <label for="brew-efficiency">Brew Efficiency(%)</label>
+                            <input type="number" class="brew-efficiency" name="brewEfficiency">
                         </div>
                     </div>
+                    <h3>Grist</h3>
+                    <div class="fermentable-container">
+                        <div class="fermentable-header">
+                            <div class="total-percentage"></div>
+                            <button class="calculate-fermentables">Calculate</button>
+                        </div>
+                        <div class="fermentable-list"></div>
+                        <button class="fermentable-add">+</button>
+                    </div>
+                    <h3>Hops</h3>
+                    <div class="hop-container">
+                        <div class="hop-header">
+                            <label for="totalIBU">Total IBU</label>
+                            <input type="number" class="total-IBU" name="totalIBU" step="0.01" value=""></input>
+                            <button class="calculate-hops">Calculate</button>
+                        </div>
+                        <div class="hop-list"></div>
+                        <button class="hop-add">+</button>
+                    </div>
+                    <h3>Yeast</h3>
+                    <div class="yeast-container">
+                        <div class="yeast-header">
+                            <label for="finalGravity">Estimated Final Gravity</label>
+                            <input class="final-gravity" name="finalGravity" value=""></input>
+                            <label for="finalAVB">Estimated Final AVB</label>
+                            <input class="final-abv" type="number" name="finalAVB" step="0.01" value=""></input>
+                            <button class="calculate-yeast">Calculate</button>
+                        </div>
+                        <div class="yeast-list">
+                            <div class="yeast">
+                                <label for="select-yeast">Selection:</label>
+                                <select class="selectYeast" name="selectedYeast">
+                                    <% for(let i=0;i<yeasts.length;i++) { %>
+                                        <option value= "<%= [yeasts[i].name,yeasts[i].attenuation] %>"> <%= yeasts[i].name %> (Attenuation: <%= yeasts[i].attenuation %>%) </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                <div class="save-container">
+                    <input class="save" type="submit" value="Save Recipe">
                 </div>
-                <input type="submit" value="Save Recipe">
+
             </form>
         </div>
     </div>
@@ -110,7 +119,7 @@
                             <label for='amount'>Amount (lb)</label>
                             <input class="weight" id="weight${i}" value="" name="amountFermentable"></input>
                         </div>
-                        <button class=remove${i}>X</button>
+                        <button id="remove" class=remove${i}>X</button>
                     </div>
                 `;
                 $(".fermentable-list").append(item);
@@ -150,7 +159,7 @@
                             <label for="amount">Amount (Oz):</label>
                             <input type="number" class='hop-amount${i}' name="amountHop" step="0.01">
                         </div>
-                        <button class=remove${i}>X</button>
+                        <button id="remove"class=remove${i}>X</button>
                     </div>
                 `;
                 $(".hop-list").append(item);

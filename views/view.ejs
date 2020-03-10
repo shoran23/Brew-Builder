@@ -5,52 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= recipe.name %></title>
+    <link rel="stylesheet" href="/css/style-view.css">
 </head>
 <body>
     <div class="container">
             <div class="recipe-container">
-                <h1><%= recipe.name %></h1>
+                <header>
+                    <h1><%= recipe.name %></h1>
+                    <a class="back" href="/recipes/">Back to Receipes</a>
+                </header>
                 <h3>Targets</h3>
                 <div class="starting-container">
-                    <div class="starting-gravity">
-                        <h4>Starting Gravity:</h4>
+                    <div class="first-item" id="starting-gravity">
+                        <h4>Starting Gravity:  </h4>
                         <p><%= recipe.startingGravity %></p>
                     </div>  
-                    <div class="volume-container">
-                        <h4>Batch Volume:</h4>
+                    <div class="second-item" id="volume-container">
+                        <h4>Batch Volume:  </h4>
                         <p><%= recipe.batchVolume %></p>
                     </div>
-                    <div class="brew-efficiency-container">
-                        <h4>Brew Efficiency:</h4>
+                    <div class="third-item" id="brew-efficiency-container">
+                        <h4>Brew Efficiency:  </h4>
                         <p><%= recipe.brewEfficiency %></p>
                     </div>
                 </div>
                 <h3>Fermentables</h3>
                 <div class="fermentable-container">
+                    <div class="label-container">
+                        <div class="first-item">Fermentable</div>
+                        <div class="second-item">Percentage</div>
+                        <div class="third-item">Amount (lbs)</div>
+                    </div>
                     <div class="fermentable-list">
                         <% for(let i=0;i<recipe.selectedFermentable.length;i++) { %>
-                            <div class="fermentableItem">
+                            <div class="fermentable-item">
                                 <% let fermentableStr = recipe.selectedFermentable[i] %>
                                 <% let fermentableArr = fermentableStr.split('~'); %>
-                                <div class="fermentableItem"><%= fermentableArr[0] %></div>
-                                <div class="fermentablePercent"><%=  recipe.percentFermentable[i] %></div>
-                                <div class="fermentableAmount"><%= recipe.amountFermentable[i] %></div>
+                                <div class="first-item" id="fermentableItem"><%= fermentableArr[0] %></div>
+                                <div class="second-item" id="fermentablePercent"><%=  recipe.percentFermentable[i] %></div>
+                                <div class="third-item" id="fermentableAmount"><%= recipe.amountFermentable[i] %></div>
                             </div>
                         <% } %>
                     </div>
-                    <h3>Hops</h3>
-                    <div class="hop-container">
-                        <div class="hop-list">
-                            <% for(let i=0;i<recipe.selectedHop.length;i++) { %>
-                                <div class="hopItem">
-                                    <% let hopStr = recipe.selectedHop[i]; %>
-                                    <% let hopArr = hopStr.split('~'); %>
-                                    <div class="hopItem"><%= hopArr[0] %></div>
-                                    <div class="hopTime"><%= recipe.timeHop[i] %></div>
-                                    <div class="hopAmount"><%= recipe.amountHop[i] %></div>
-                                </div>
-                            <% } %>                            
+                </div>
+                <h3>Hops</h3>
+                <div class="hop-container">
+                    <div class="label-container">
+                            <div class="first-item">Fermentable</div>
+                            <div class="second-item">Time (min)</div>
+                            <div class="third-item">Amount (oz)</div>
                         </div>
+                    <div class="hop-list">
+                        <% for(let i=0;i<recipe.selectedHop.length;i++) { %>
+                            <div class="hop-item">
+                                <% let hopStr = recipe.selectedHop[i]; %>
+                                <% let hopArr = hopStr.split('~'); %>
+                                <div class="first-item" id="hopItem"><%= hopArr[0] %></div>
+                                <div class="second-item" id="hopTime"><%= recipe.timeHop[i] %></div>
+                                <div class="third-item" id="hopAmount"><%= recipe.amountHop[i] %></div>
+                            </div>
+                        <% } %>                            
                     </div>
                 </div>
                 <h3>Yeast</h3>
@@ -63,22 +77,21 @@
                     </div>
                 </div>
                 <h3><%= recipe.name %> Stats</h3>
-                <div class="state-container">
-                    <div class="final-gravity">
-                        <div class="label">Estimated Final Gravity</div>
+                <div class="stat-container">
+                    <div class="first-item" id="final-gravity">
+                        <h4 class="label">Estimated Final Gravity: </h4>
                         <div class="data"><%= recipe.finalGravity %></div>
                     </div>
-                    <div class="final-avb">
-                        <div class="label">Estimated Final AVB</div>
+                    <div class="second-item" id="final-avb">
+                        <h4 class="label">Estimated Final AVB: </h4>
                         <div class="data"><%= recipe.finalAVB %></div>
                     </div>
-                    <div class="total-ibu">
-                        <div class="label">Total IBU</div>
+                    <div class="third-item" id="total-ibu">
+                        <h4 class="label">Total IBU: </h4>
                         <div class="data"><%= recipe.totalIBU %></div>
                     </div>
                 </div>
             </div>
-            <a href="/recipes/">Back to Receipes</a>
         </div>    
 </body>
 </html>
