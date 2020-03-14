@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
-const port = 3007;
+const port = process.env.PORT || 3007;
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const userController = require('./controllers/users.js');
@@ -14,13 +16,13 @@ app.use(methodOverride('_method'));
 app.use('/users',userController);
 app.use('/sessions', sessionsController);
 app.use(session({
-    secret: 'feedmeseymour',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
 }));
 
 /* CONNECTIONS ********************************************************/
-mongoose.connect("mongodb://localhost:27017/brew-builderdb", {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true    
 });

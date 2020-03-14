@@ -1,6 +1,23 @@
 # Brew Builder
 
-Brew Builder is a site that assists home brewers in creating their own recipes.
+## User S
+
+
+## Technologies Used:
+- Javascript
+- HTML
+- Embedded Javascript
+- Express
+- MongoDB
+- Mongoose
+
+## Purpose
+The purpose of this application is to assist home brewers with designing there own beer recipes.  By providing the necessary information
+for ingredients and automating the 
+
+## Approach
+The approa
+
 
 ## Getting Started
 
@@ -64,8 +81,3 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
