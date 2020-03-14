@@ -1,83 +1,56 @@
 # Brew Builder
 
-## User S
-
+## Purpose
+The purpose of this application is to assist home brewers with designing there own beer recipes.  By providing the necessary information
+for ingredients and automating calculations, users can qucikly and efficiently create and experiment with new beer recipes.
 
 ## Technologies Used:
 - Javascript
 - HTML
-- Embedded Javascript
+- EJS
+- CSS
 - Express
 - MongoDB
 - Mongoose
 
-## Purpose
-The purpose of this application is to assist home brewers with designing there own beer recipes.  By providing the necessary information
-for ingredients and automating the 
-
 ## Approach
-The approa
+- Utilize a database that will store ingredient data.
+- Create a dynamic form where the users can put together new recipes.
+- Perform recipe calculations.
+- Store user recipes in a database where they can be edited and removed by users.
 
 
 ## Getting Started
-
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 
 
 ### Installing
+- Seeding the recipe databases
+    - host/seed_fermentables
+    - host/seed_hops
+    - host/seed_yeast
+    
+## NPM install
+- express
+- mongod
+- method-override
+- ejs
 
-- NPM i
-    - express
-    - mongod
-    - method-override
-    - 
+## Unsolved Problems
+- Could not get the edit page to load the current recipe values properly.  Users can still update ther recipes
+but they will need to enter in the original recipe data.  This only pertains to the array values within the database.
+- Additional styling which include icons on button and links.
+- Have not yet gotten the app to properly run on Heroku.
+- Does not yet have encrypted passwords.
 
-## Running the tests
 
-Explain how to run the automated tests for this system
+## Wish List
+- Add in a beer style guide that will allow users to stay within certain style guidelines for their recipes.
+- Add an RGB color view to give the user an idea of what color their beer will be.
+- Add in mashing steps to the recipe builder.
+- Improve the seeded ingredient database.
 
-### Break down into end to end tests
 
-Explain what these tests test and why
 
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
