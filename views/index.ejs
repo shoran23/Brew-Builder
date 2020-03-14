@@ -1,30 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recipes</title>
-    <link rel="stylesheet" href="/css/style-index.css">
+  <meta charset="utf-8">
+  <title>Brew Builder: Log In or Sign Up</title>
+  <link rel="stylesheet" href="/css/style-sessions.css">
 </head>
 <body>
-    <div class="container">
-        <div class="recipe-container">
-            <h1>User Recipes</h1>   
-            <% for(let i=0;i<recipes.length;i++) { %>
-                <div class="recipe">
-                    <h3 class="recipe-name"><%= recipes[i].name %></h3>
-                    <div class="options">
-                        <a href="/recipes/<%= recipes[i].id %>" class="view">View</a>
-                        <a href="/recipes/edit/<%= recipes[i].id %>" class="edit">Edit</a>
-                        <form action="/recipes/delete/<%= recipes[i].id %>?_method=DELETE" class="delete-form" method="POST">
-                          <button class="delete">DELETE</button>
-                        </form>
-                    </div>
-                </div>
-            <% } %>
-            <a class="add" href="/recipes/new">+</a>
-        </div>
+  <div class="header-container">
+    <header>
+      <h1>Beer Recipe Builder</h1>
+    </header>
+  </div>
+  <div class="container">
+    <div class="msg">
+      <h1 class="app-name">Brew Builder</h1>
+        <h3>The best place for home brewers to build recipes.</h3>
+        <nav>
+            <ul>
+              <li><a class="login" href="/sessions/new">Log In</a></li>
+              <li><a class="sign-up" href="/users/new">Sign Up</a></li>
+            </ul>
+        </nav>
     </div>
+  </div>
 </body>
 </html>

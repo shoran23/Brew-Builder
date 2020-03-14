@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Beer Builder: Welcome</title>
+    <link rel="stylesheet" href="/css/style-sessions.css">
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <h1>Beer Recipe Builder</h1>
+            <a class="back" href="/sessions/new">Log Out</a>
+        </header>
+    </div>
+    <div class="container">
+        <div class="msg">
+            <div class="sign-in">
+                <h1>Welcome <%= currentUser.username%></h1>
+                <a href="/recipes/<%= currentUser.id %>">View Recipes</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

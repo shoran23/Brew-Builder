@@ -3,6 +3,11 @@
     /*border: 1px solid darkgray;*/
 }
 
+body {
+    background-image: url('/images/barley_hops.jpg');
+    background-size: cover;
+}
+
 header {
     width: 100%;
     background-color: rgba(204,102,0,1);
@@ -95,10 +100,14 @@ h3 {
     width: 100%;
 }
 
-
 #starting-gravity, #volume-container, #brew-efficiency-container {
     height: 100%;
 }
+
+.starting-container, .fermentable-container, .hop-container, .yeast-container, .stat-container{
+    background-color: rgba(255,255,255,0.90);
+}
+
 
 
 

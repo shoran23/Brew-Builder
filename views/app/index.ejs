@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Recipes</title>
+    <link rel="stylesheet" href="/css/style-index.css">
+</head>
+<body>
+    <div class="container">
+        <div class='header-container'>
+            <header>
+                <h1>Brew Builder</h1>
+                <a class="back" href="/sessions/new">Log Out</a>
+            </header>
+        </div>
+        <div class="recipe-container">
+            <h1>Recipe List</h1> 
+            <% for(let i=0;i<recipes.length;i++) { %>
+                <% if(recipes[i].user == userId) {  %>
+                    <div class="recipe">
+                        <h3 class="recipe-name"><%= recipes[i].name %></h3>
+                        <div class="options">
+                            <a href="/recipes/view/<%= recipes[i].id %>" class="view">View</a>
+                            <a href="/recipes/edit/<%= recipes[i].id %>" class="edit">Edit</a>
+                            <form action="/recipes/delete/<%= recipes[i].id %>?_method=DELETE" class="delete-form" method="POST">
+                            <button class="delete">DELETE</button>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+            <a class="add" href="/recipes/new/<%= userId %>">+</a>
+        </div>
+    </div>
+</body>
+</html>

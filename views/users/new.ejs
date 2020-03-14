@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Brew Builder: Create User</title>
+    <link rel="stylesheet" href="/css/style-sessions.css">
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <h1>Beer Recipe Builder</h1>
+            <a class="back" href="/">Back</a>
+        </header>
+    </div>
+    <div class="container">
+        <div class="msg">
+            <h1>Sign Up Below</h1>
+            <div class="row">
+                <form class="col s12" action="/users" method="POST">
+                <div class="row">
+                    <div class="input-field">
+                        <label for="username">User Name</label>
+                        <input placeholder="username" id="username" type="text" class="validate" name="username" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <label for="password">Password</label>
+                        <input placeholder="password" id="password" type="password" class="validate" name="password" required>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button class="btn" type="submit" name="action">Sign Up</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 /* SCHEMA *************************************************************/
 const recipeSchema = new Schema ({
+    // user
+    user: String,
+    // recipe name
     name: {type: String, required: true},
     // targets
     startingGravity: {type: Number, required: true},

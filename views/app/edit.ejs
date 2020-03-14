@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit: <%= recipe.name %></title>
+    <link rel="stylesheet" href="/css/style-recipe.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="recipe-container">
+            <header>
+                <h1><%= recipe.name %></h1>
+                <a class="back" href="/recipes/<%= userId %>">Back to Receipes</a>
+            </header>
+            <form action="/update/recipes/<%= recipe.id %>?_method=PUT" method="POST">
+                <div class="name-container">
+                    <div class="name">
+                        <label for="name">Recipe Name:</label>
+                        <input class="name-input" type="text" name="name" value="<%= recipe.name %>">
+                    </div>
+                </div>
+                    <h3>Targets</h3>
+                    <div class="starting-container">
+                        <div class="starting-gravity">
+                            <label for="starting-gravity">Starting Gravity:</label>
+                            <input type="number" class="start-gravity" step="0.001" name="startingGravity" value="<%= recipe.startingGravity %>">
+                        </div>  
+                        <div class="volume-container">
+                            <label for="volume">Batch Volume (G):</label>
+                            <input type="number" class="batch-volume" step="0.001" name="batchVolume" value="<%= recipe.batchVolume %>">
+                        </div>
+                        <div class="brew-efficiency-container">
+                            <label for="brew-efficiency">Brew Efficiency(%)</label>
+                            <input type="number" class="brew-efficiency" name="brewEfficiency" value="<%= recipe.brewEfficiency %>">
+                        </div>
+                    </div>
+                    <h3>Fermentables</h3>
+                    <div class="fermentable-container">
+                        <div class="fermentable-header">
+                            <div class="total-percentage"></div>
+                            <button class="calculate-fermentables">Calculate</button>
+                        </div>
+                        <div class="fermentable-list">
+                        </div>
+                        <button class="fermentable-add">+</button>
+                    </div>
+                    <h3>Hops</h3>
+                    <div class="hop-container">
+                        <div class="hop-header">
+                            <label for="totalIBU">Total IBU</label>
+                            <input type="number" class="total-IBU" name="totalIBU" step="0.01" value="<%= recipe.totalIBU %>"></input>
+                            <button class="calculate-hops">Calculate</button>
+                        </div>
+                        <div class="hop-list"></div>
+                        <button class="hop-add">+</button>
+                    </div>
+                    <h3>Yeast</h3>
+                    <div class="yeast-container">
+                        <div class="yeast-header">
+                            <label for="finalGravity">Estimated Final Gravity</label>
+                            <input class="final-gravity" name="finalGravity" value="<%= recipe.finalGravity %>" ></input>
+                            <label for="finalAVB">Estimated Final AVB</label>
+                            <input class="final-abv" type="number" name="finalAVB" step="0.01" value="<%= recipe.finalAVB %>"></input>
+                            <button class="calculate-yeast">Calculate</button>
+                        </div>
+                        <div class="yeast-list">
+                            <div class="yeast">
+                                <label for="select-yeast">Selection:</label>
+                                <select class="selectYeast" name="selectedYeast">r
+                                    <% for(let i=0;i<yeasts.length;i++) { %>
+                                        <option value= "<%= [yeasts[i].name,yeasts[i].attenuation] %>" 
+                                        <% if(yeasts[i].name+','+yeasts[i].attenuation === String(recipe.selectedYeast)) { %>
+                                            selected = true
+                                        <% } %>
+                                        > 
+                                        <%= yeasts[i].name %> (Attenuation: <%= yeasts[i].attenuation %>%) </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                <div class="save-container">
+                    <input class="save" type="submit" value="Save Recipe">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create HTML elements to pass into script -->
+    <input hidden class="recipeFermentableTotal" value="<%= recipe.selectedFermentable.length %>"">
+    <input hidden class="recipeHopAmount" value="<%= recipe.selectedHop.length %>">
+
+    <script>
+        // set globael variables
+        let curFermentableAmount = Number($('.recipeFermentableTotal').val());        
+        let curHopAmount = Number($('.recipeHopAmount').val());
+        let lastFermentableAmount = 0;
+        let lastHopAmount = 0;
+        let totalPercentage = 0;
+        let totalIBU = 0;
+
+        /* FERMENTABLES LIST *****************************************************************************************************/
+        let createFermentableList = () => {
+            for(let i=lastFermentableAmount;i<curFermentableAmount;i++) {
+                let item = `
+                    <div class='fermentable' id=fermentable${i}>
+                        <div class="selectFermentable">
+                            <label for='select' id='fermentable-select'>Selection:</label>
+                            <select class=selectFermentableItem${i} name=selectedFermentable >   
+                                <% for(let i=0;i<fermentables.length;i++){ %>
+                                    <option value= "<%= [fermentables[i].name + '~' + fermentables[i].potential] %>"  
+
+                                    >
+                                    <%= fermentables[i].name %> (Potential: <%= fermentables[i].potential %>) </option>
+                                <% } %>
+                            </select>                    
+                        </div>
+                        <div class='percentage'>
+                            <label for='percentage'>Percentage:</label>
+                            <input type="number" class="percentage${i}" value="<%= recipe.percentFermentable[0] %>" name="percentFermentable">
+                        </div>
+                        <div class='weight-container'>
+                            <label for='amount'>Amount (lb)</label>
+                            <input class="weight" id="weight${i}" value= "<%= recipe.amountFermentable[0] %>" %> name="amountFermentable"></input>
+                        </div>
+                        <button id="remove" class=remove${i}>X</button>
+                    </div>
+                `;
+                $(".fermentable-list").append(item);
+                $(".remove"+i).click( () => {
+                    if(curFermentableAmount > 1) {
+                        $(`#fermentable${i}`).remove();
+                    }
+                    return false;
+                });
+            }
+        }
+        let addFermentable = () => {
+            lastFermentableAmount = curFermentableAmount;
+            curFermentableAmount += 1;
+            createFermentableList();
+            return false;
+        }
+
+        /* HOPS LIST ****************************************************************************************************************/
+        let createHopList = () => {
+            for(let i=lastHopAmount;i<curHopAmount;i++) {
+                let item = `
+                    <div class='hop' id=hop${i}>
+                        <div class='hopSelect'>
+                            <label for='select'>Selection:</label>
+                            <select class=selectHop${i} name="selectedHop">
+                                <% for(let i=0;i<hops.length;i++) { %>
+                                    <option type="text" value="<%= [hops[i].name + '~' + hops[i].alpha] %>"> <%= hops[i].name %> (Alpha: <%= hops[i].alpha %>%)</option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="time">
+                            <label for="time">Boil Time (Min):</label>
+                            <input type='number' class=boilTime${i} name="timeHop">
+                        </div>
+                        <div class="amount">
+                            <label for="amount">Amount (Oz):</label>
+                            <input type="number" class='hop-amount${i}' name="amountHop" step="0.01">
+                        </div>
+                        <button id="remove"class=remove${i}>X</button>
+                    </div>
+                `;
+                $(".hop-list").append(item);
+                $(".remove"+i).click(() => {
+                    if(curHopAmount > 1){
+                        $(`#hop${i}`).remove();
+                    };
+                    return false;
+                });
+            }
+        }
+        let addHop = () => {
+            lastHopAmount = curHopAmount;
+            curHopAmount += 1;
+            createHopList();
+            return false;
+        }
+
+        /* FERMENTABLES CALCULATE ****************************************************************/
+        let calculateFermentables = () => {
+            // get values from the form
+            let startingGravity = $('.start-gravity').val();
+            let batchVol = $('.batch-volume').val();
+            // get starting gravity units
+            let totalGU = Math.floor((startingGravity - 1.000)*1000);
+            totalGU = totalGU * batchVol;
+            // determine amount needed for all grains
+            for(let i=0;i<curFermentableAmount;i++) {
+                // determine the input values
+                let curFermentableStr = $(`.selectFermentableItem${i}`).val();
+                let curFermentableArr = curFermentableStr.split('~');
+                let curFermentable = curFermentableArr[1];
+                let curGU = Math.floor((curFermentable - 1.000)*1000);
+                let curPercentage = $(`.percentage${i}`).val();
+                let brewEfficiency = $('.brew-efficiency').val();
+                brewEfficiency = brewEfficiency / 100;
+                // determine the proportion amount
+                let proportionAmount = (totalGU * (curPercentage / 100));
+                // determine weigh needed
+                let neededWeight = Math.floor((proportionAmount / curGU / brewEfficiency)*100)/100;
+                // show weight and total percentage on form
+                $(`#weight${i}`).val(neededWeight);
+            }
+            return false;
+        }
+
+        /* HOP CALCULATIONS **********************************************************************/
+        let calculateBitterness = () => {
+            // get batch values
+            let startingGravity = $('.start-gravity').val();
+            let batchVol = $('.batch-volume').val();
+            let totalIBU = 0;
+            // determine gravity correction
+            let cGravity = 1 + ((startingGravity - 1.050) / 0.2);
+            // calculate IBU's for all hop additional and add them up
+            for(let i=0;i<curHopAmount;i++) {
+                let curTime = $(`.boilTime${i}`).val();
+                let curAmount = $(`.hop-amount${i}`).val();
+                let curAlphaStr = $(`.selectHop${i}`).val();
+                let curAlphaArr = curAlphaStr.split('~');
+                let curAlpha = Number(curAlphaArr[1]);
+
+                console.log(curAlpha);
+
+                // determine utilization
+                let curUtilization = 0;
+                if(curTime >= 75){
+                    curUtilization = 34;
+                } else if(curTime < 75 && curTime >= 60) {
+                    curUtilization = 30;
+                } else if(curTime < 60 && curTime >=45) {
+                    curUtilization = 27;
+                } else if(curTime < 45 && curTime >= 30) {
+                    curUtilization = 24;
+                } else if(curTime < 30 && curTime >= 20) {
+                    curUtilization = 19;
+                } else if (curTime < 20 && curTime >= 10) {
+                    curUtilization = 15;
+                } else if(curTime < 10 && curTime >= 1) {
+                    curUtilization = 6;
+                } else if(curTime = 0) {
+                    curUtilization = 0;
+                } 
+                // adjust for percentage
+                curUtilization = curUtilization / 100;
+                curAlpha = curAlpha / 100;
+                // calculate current IBU
+                let curIBU = (curAmount * curUtilization * curAlpha * 7489) / (batchVol * cGravity);
+                // add up totoal IBU
+                totalIBU += curIBU;
+            }
+            // round and post total IBU
+            totalIBU = Math.floor(totalIBU * 100)/100;
+            $('.total-IBU').val(totalIBU);
+            console.log(totalIBU);
+            return false;
+        }
+
+        /* YEAST CALCULATIONS ****************************************************************************/
+        let calculateYeast = () => {
+            // get batch values            
+            let startingGravity = $('.start-gravity').val();
+            let attenuationStr = $('.selectYeast').val();
+            let attenuationArr = attenuationStr.split(',')
+            let attenuation = (Number(attenuationArr[1]))/100;
+            // calculate final gravity
+            let startingGU = Math.floor((startingGravity - 1.000) * 1000);
+            let finalGU = startingGU * attenuation;
+            let finalGravity = Math.floor((startingGravity - (finalGU / 1000))*1000)/1000;
+            // calculate final AVB
+            let finalAVB = Math.floor(((startingGravity - finalGravity) * 131)*100)/100;
+            // post the finaL gravity and final AVB
+            $('.final-gravity').val(finalGravity);
+            $('.final-abv').val(finalAVB);
+            return false;
+        }
+
+        /* SET UP FORM WHEN RENDERED *********************************************************************/
+        createFermentableList();
+        createHopList();
+
+        /* EVENTS ****************************************************************************************/
+        $('.fermentable-add').click('on',addFermentable);
+        $('.hop-add').click('on',addHop);
+        $('.calculate-fermentables').click('on',calculateFermentables);
+        $('.calculate-hops').click('on',calculateBitterness);
+        $('.calculate-yeast').click('on',calculateYeast);
+    </script>
+</body>
+</html> 
